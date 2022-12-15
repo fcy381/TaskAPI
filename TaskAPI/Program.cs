@@ -1,4 +1,6 @@
 using TaskAPI.Endpoints;
+using TaskAPI.Entities;
+using TaskAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Learn more about configuring Mongo at https://learn.microsoft.com/es-es/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-6.0&tabs=visual-studio
+builder.Services.Configure<KANBANDatabaseSettings>(builder.Configuration.GetSection("KANBANDatabase"));
+
+builder.Services.AddSingleton<TaskRepository>(); 
 
 var app = builder.Build();
 
@@ -20,29 +27,5 @@ app.UseHttpsRedirection();
 
 app.ConfigureTaskEndpoints();
 
-
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateTime.Now.AddDays(index),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
-
 app.Run();
 
-//internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}

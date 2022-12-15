@@ -2,15 +2,15 @@
 {
     public interface ITaskRepository
     {
-        Task<ICollection<Entities.Task>> GetAllAsync();
+        Task<List<Entities.Tarea>> GetAllAsync();
 
-        Task<Entities.Task> GetAsync(int id);
+        Task<Entities.Tarea> GetAsync(Guid id);
 
-        Task CreateAsync();
+        Task CreateAsync(Entities.Tarea task);
 
-        Task UpdateAsync(int id);
+        Task UpdateAsync(Guid id, Entities.Tarea task);
 
-        Task RemoveAsync(int id);
+        Task RemoveAsync(Guid id);
 
         Task SaveAsync();
     }

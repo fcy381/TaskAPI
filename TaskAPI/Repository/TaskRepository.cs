@@ -1,68 +1,55 @@
-﻿using TaskAPI.Repository.IRepository;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using TaskAPI.Entities;
+using TaskAPI.Repository.IRepository;
 
 namespace TaskAPI.Repository
 {
     public class TaskRepository : ITaskRepository
     {
 
-        Task<ICollection<Entities.Task>> GetAllAsync()
-        { 
-            
+        private readonly IMongoCollection<Entities.Tarea> _tareasCollection;
+
+        public TaskRepository(IOptions<KANBANDatabaseSettings> kanbanDatabaseSettings)
+        {
+            var mongoClient = new MongoClient(kanbanDatabaseSettings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(kanbanDatabaseSettings.Value.DatabaseName);
+
+            _tareasCollection = mongoDatabase.GetCollection<Entities.Tarea>(kanbanDatabaseSettings.Value.BooksCollectionName);
         }
 
-        Task<Entities.Task> GetAsync(int id)
+        public async Task<List<Entities.Tarea>> GetAllAsync()
         {
-
+            var pepe = await _tareasCollection.Find(_ => true).ToListAsync();
+            return pepe;
         }
 
-        Task CreateAsync()
+        public async Task<Entities.Tarea> GetAsync(Guid id)
         {
-
+            var pepe = await _tareasCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            return pepe;
         }
 
-        Task UpdateAsync(int id)
+        public async Task CreateAsync(Entities.Tarea task)
         {
-
+            await _tareasCollection.InsertOneAsync(task);
         }
 
-        Task RemoveAsync(int id)
+        public async Task UpdateAsync(Guid id, Entities.Tarea task)
         {
-
+            await _tareasCollection.ReplaceOneAsync(x => x.Id == id, task);
         }
 
-        Task SaveAsync()
+        public async Task RemoveAsync(Guid id)
         {
-
+            await _tareasCollection.DeleteOneAsync(x => x.Id == id);
         }
 
-        Task<ICollection<Entities.Task>> ITaskRepository.GetAllAsync()
+        public async Task SaveAsync()
         {
-            throw new NotImplementedException();
-        }
 
-        Task<Entities.Task> ITaskRepository.GetAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ITaskRepository.CreateAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ITaskRepository.UpdateAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ITaskRepository.RemoveAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ITaskRepository.SaveAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }
