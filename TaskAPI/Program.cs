@@ -1,6 +1,8 @@
+using JobAPI;
 using TaskAPI.Endpoints;
 using TaskAPI.Entities;
 using TaskAPI.Repository;
+using TaskAPI.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,9 @@ builder.Services.AddSwaggerGen();
 // Learn more about configuring Mongo at https://learn.microsoft.com/es-es/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-6.0&tabs=visual-studio
 builder.Services.Configure<KANBANDatabaseSettings>(builder.Configuration.GetSection("KANBANDatabase"));
 
-builder.Services.AddSingleton<TaskRepository>(); 
+builder.Services.AddSingleton<JobRepository>();
+
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 var app = builder.Build();
 
@@ -25,7 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.ConfigureTaskEndpoints();
+app.ConfigureJobService();
 
 app.Run();
 
