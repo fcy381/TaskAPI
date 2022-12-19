@@ -1,6 +1,6 @@
-﻿using TaskAPI.Entities;
+﻿using JobAPI.Entities;
 
-namespace TaskAPI.Repository.IRepository
+namespace JobAPI.Repository.IRepository
 {
     public interface IJobRepository
     {

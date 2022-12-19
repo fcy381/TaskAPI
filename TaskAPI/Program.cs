@@ -1,8 +1,8 @@
 using JobAPI;
-using TaskAPI.Endpoints;
-using TaskAPI.Entities;
-using TaskAPI.Repository;
-using TaskAPI.Repository.IRepository;
+using JobAPI.Services;
+using JobAPI.Entities;
+using JobAPI.Repository;
+using JobAPI.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 

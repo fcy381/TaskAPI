@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using TaskAPI.Entities;
-using TaskAPI.Repository.IRepository;
+using JobAPI.Entities;
+using JobAPI.Repository.IRepository;
 
-namespace TaskAPI.Repository
+
+namespace JobAPI.Repository
 {
     public class JobRepository : IJobRepository
     {

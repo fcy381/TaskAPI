@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using JobAPI.Models;
-using TaskAPI.Entities;
+using JobAPI.Entities;
 
 namespace JobAPI
 {
@@ -8,7 +8,9 @@ namespace JobAPI
     {
         public MappingConfig()
         {
-            CreateMap<Job, JobCreateDTO>().ReverseMap();       
+            CreateMap<Job, JobGetDTO>().ReverseMap();
+            CreateMap<Job, JobCreateDTO>().ReverseMap();
+            CreateMap<Job, JobUpdateDTO>().ReverseMap();
         }
     }
 }

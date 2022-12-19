@@ -1,4 +1,4 @@
-﻿namespace TaskAPI.Entities
+﻿namespace JobAPI.Entities
 {
     public class KANBANDatabaseSettings
     {

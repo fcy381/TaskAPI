@@ -2,14 +2,14 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace TaskAPI.Entities
+namespace JobAPI.Entities
 {
     public class Job
     {
         public Job()
         {
             Id = Guid.NewGuid();
-            }
+        }
 
         [BsonId]
         public Guid Id { get; set; }
